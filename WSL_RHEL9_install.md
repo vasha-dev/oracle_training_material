@@ -1,16 +1,28 @@
-Open powershell in administrator mode, update WSL.
-```poweshell
+# WSL Oracle Linux 9 Installation Guide
+
+## Prerequisites
+
+Open PowerShell in administrator mode and update WSL:
+```powershell
 wsl --update
 ```
-1. Install oracle linux. After distro installs. It will ask you to create an user, make sure to mark down the password of the user. 
+
+## Step 1: Install Oracle Linux
+
+Install Oracle Linux 9.5. After the distro installs, it will ask you to create a user. Make sure to note down the password.
 ```powershell
 wsl --install -d OracleLinux_9_5
 ```
-2. In oracle linux: Create /etc/wsl.conf and append echo WSL settings. Under root user.  
-```SHELL
+
+## Step 2: Configure WSL Settings
+
+In Oracle Linux, create `/etc/wsl.conf` and append WSL settings. Switch to root user first:
+```bash
 sudo su - root
 ```
-```SHELL
+
+Create the configuration file:
+```bash
 {
 echo "[network]"
 echo "generateResolvConf = false"
@@ -22,15 +34,23 @@ echo "[boot]"
 echo "systemd=true"
 } >> /etc/wsl.conf
 ```
-3. Shutdown WSL in powershell. And open VM again via "Oracle Linux X.X" windows app. 
+
+## Step 3: Restart WSL
+
+Shutdown WSL in PowerShell, then open the VM again via the "Oracle Linux X.X" Windows app:
 ```powershell 
 wsl --shutdown
 ```
-4. Update VM. Under root user. 
-```SHELL
+
+## Step 4: Update System
+
+Update the VM. Switch to root user first:
+```bash
 sudo su - root
 ```
-```SHELL
+
+Run system updates and install required packages:
+```bash
 echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
 echo "nameserver 8.8.4.4" >> /etc/resolv.conf && \
 dnf upgrade -y && \
